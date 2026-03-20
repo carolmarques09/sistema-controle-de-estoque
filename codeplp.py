@@ -109,6 +109,64 @@ def init_prog():
     nomep = Label(tarja, text='Controle de Estoque', bg=azul, fg=branco, font=('Ivy 8'), anchor=NW, relief='flat')
     nomep.place(x=60, y=40)
 
+        # Nome
+    Label(escopo, text="Nome do álbum").pack()
+    entry_nome = Entry(escopo)
+    entry_nome.pack()
+
+    # Artista
+    Label(escopo, text="Artista").pack()
+    entry_artista = Entry(escopo)
+    entry_artista.pack()
+
+    # Gênero
+    Label(escopo, text="Gênero").pack()
+    entry_genero = Entry(escopo)
+    entry_genero.pack()
+
+    # Quantidade
+    Label(escopo, text="Quantidade").pack()
+    entry_quantidade = Entry(escopo)
+    entry_quantidade.pack()
+
+    # Preço
+    Label(escopo, text="Preço").pack()
+    entry_preco = Entry(escopo)
+    entry_preco.pack()
+
+    Label(escopo, text="ID do Produto").pack()
+    entry_id = Entry(escopo)
+    entry_id.pack()
+
+    def botao_adicionar():
+        nome = entry_nome.get()
+        artista = entry_artista.get()
+        genero = entry_genero.get()
+        quantidade = int(entry_quantidade.get())
+        preco = float(entry_preco.get())
+
+        adicionar_produto(nome, artista, genero, quantidade, preco)
+
+    Button(escopo, text="Adicionar Produto", command=botao_adicionar).pack(pady=10)
+
+    def botao_vender():
+        nome = entry_nome.get()
+        quantidade = int(entry_quantidade.get())
+
+        vender_produto(nome, quantidade)
+
+    Button(escopo, text="Vender Produto", command=botao_vender).pack(pady=10)
+
+    def botao_alterar():
+        id_produto = int(entry_id.get())
+        nome = entry_nome.get()
+        quantidade = int(entry_quantidade.get())
+        preco = float(entry_preco.get())
+
+        alterar_produto(id_produto, nome, quantidade, preco)
+
+    Button(escopo, text="Alterar Produto", command=botao_alterar).pack(pady=10)
+
     root.iconphoto(True, photo)
     root.mainloop()
 
