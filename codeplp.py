@@ -6,6 +6,75 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
 
+# Conexão com o MySQL
+
+conn = mysql.connector.connect(
+    user='root',
+    password='whyblu3',
+    host='localhost',
+    port='3306',
+    database='estoque_discos'
+)
+
+cursor = conn.cursor()
+
+    # if conn.is_connected():
+    #    print("Conectado com sucesso!")
+    #    cursor = conn.cursor()
+    #    cursor.execute("SELECT DATABASE();")
+    #    record = cursor.fetchone()
+    #    print(f"Connected to database: {record}")
+
+# estoque = {}
+
+# Funções do banco
+
+def adicionar_produto(nome, artista, genero, quantidade, preco):
+    cursor.execute("""
+        INSERT INTO produtos (nome, artista, genero, quantidade, preco)
+        VALUES (%s, %s, %s, %s, %s)
+    """, (nome, artista, genero, quantidade, preco))
+
+    conn.commit()
+    print("Produto adicionado com sucesso!")
+
+def vender_produto(nome, quantidade):
+    cursor.execute("""
+        UPDATE produtos
+        SET quantidade = quantidade - %s
+        WHERE nome = %s AND quantidade >= %s
+    """, (quantidade, nome, quantidade))
+
+    conn.commit()
+
+    if cursor.rowcount == 0:
+        print("Estoque insuficiente ou produto não encontrado.")
+    else:
+        print("Venda realizada com sucesso!")
+
+# adicionar_produto(estoque)
+# vender_produto(estoque)
+
+def alterar_produto(id_produto, novo_nome, nova_quantidade, novo_preco):
+    cursor.execute("""
+        UPDATE produtos
+        SET nome = %s, quantidade = %s, preco = %s
+        WHERE id_produto = %s
+    """, (novo_nome, nova_quantidade, novo_preco, id_produto))
+
+    conn.commit()
+
+    if cursor.rowcount == 0:
+        print("Produto não encontrado.")
+    else:
+        print("Produto atualizado com sucesso!")
+
+# Testando a função
+# alterar_produto(estoque)
+# print(estoque)
+
+# Interface gráfica
+
 def init_prog():
 
     # colors
@@ -13,13 +82,20 @@ def init_prog():
     branco = "#ffffff"
     preto = "#000000"
     vermelho =  "#d92316"
-    verde = "##30d927"
+    verde = "#30d927"
 
     root = Tk()
     root.title("Controle de Estoque - Galeria do Metal")
     root.resizable(width=FALSE, height=FALSE)
-    image = Image.open()
+    image = Image.open("ativ_paradigmas/heavymetal.jpg")
     photo = ImageTk.PhotoImage(image)
+
+    def fechar_programa():
+        cursor.close()
+        conn.close()
+        root.destroy()
+
+    root.protocol("WM_DELETE_WINDOW", fechar_programa)
 
     tarja = Frame(root, width=400, height=80, bg=azul, relief='flat')
     tarja.grid(row=0, column=0)
@@ -36,74 +112,4 @@ def init_prog():
     root.iconphoto(True, photo)
     root.mainloop()
 
-
-# Conexão com o MySQL
-
-try:
-
-    conn = mysql.connector.connect(
-        user='root',
-        password='whyblu3',
-        host='localhost',
-        port='3306',
-        database='estoque_discos'
-    )
-
-    if conn.is_connected():
-        print("Conectado com sucesso!")
-        cursor = conn.cursor()
-        cursor.execute("SELECT DATABASE();")
-        record = cursor.fetchone()
-        print(f"Connected to database: {record}")
-
-except mysql.connector.Error as err:
-    print(f"Error: {err}")
-finally:
-    if 'conn' in locals() and conn.is_connected():
-        cursor.close()
-        conn.close()
-
-estoque = {}
-
-# Funções
-
-def adicionar_produto(nome, quantidade):
-    estoque[nome] = estoque.get(nome, 0) + quantidade
-    print(f"{nome} adicionado. Estoque: {estoque[nome]}")
-
-def vender_produto(nome, quantidade):
-    if nome in estoque and estoque[nome] >= quantidade:
-        estoque[nome] -= quantidade
-        print(f"{nome} vendido. Estoque: {estoque[nome]}")
-    else:
-        print("Estoque insuficiente ou produto inexistente.")
-
-# adicionar_produto(estoque)
-# vender_produto(estoque)
-
-def alterar_produto(nome, quantidade):
-    id_busca = int(input("Digite o ID do produto que deseja alterar: "))
-
-    produto_encontrado = None
-    for produto in nome and quantidade:
-        if produto["id"] == id_busca:
-            produto_encontrado = produto
-            break
-
-    if produto_encontrado:
-        print(f"Produto encontrado: {produto_encontrado}")
-        novo_nome = input(f"Novo nome ({produto_encontrado['nome']}): ")
-        nova_quantidade = int(input(f"Nova quantidade ({produto_encontrado['quantidade']}): "))
-        novo_preco = float(input(f"Novo preço ({produto_encontrado['preco']}): "))
-
-        produto_encontrado['nome'] = novo_nome if novo_nome else produto_encontrado['nome']
-        produto_encontrado['quantidade'] = nova_quantidade
-        produto_encontrado['preco'] = novo_preco
-
-        print("Produto alterado com sucesso!")
-    else:
-        print("Produto não encontrado no estoque.")
-
-# Testando a função
-# alterar_produto(estoque)
-# print(estoque)
+init_prog()
