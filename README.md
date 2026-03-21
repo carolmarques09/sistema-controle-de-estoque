@@ -1,4 +1,24 @@
-# atividade_paradigmas_ling_prog
+📦 Controle de Estoque
+Projeto desenvolvido como atividade da disciplina de Paradigmas de Linguagem de Programação, implementando um sistema de controle de estoque com duas abordagens distintas.
 
-Projeto de código da atividade em sala da disciplina de Paradigmas de Linguagem de Programação, com o tema "Controle de Estoque", utilizando as linguagens Python com SQL e interface gráfica com Tkinter, e Java com POO (Programação Orientada a Objetos).
+📝 Descrição
+Sistema de controle de estoque que permite cadastrar, consultar, atualizar e remover produtos. O projeto foi desenvolvido em duas linguagens, explorando diferentes paradigmas de programação:
 
+Python — paradigma procedural, com banco de dados SQL e interface gráfica via Tkinter
+Java — paradigma orientado a objetos (POO)
+
+
+🛠️ Tecnologias
+LinguagemRecursos utilizadosPythonTkinter (GUI), SQLite (banco de dados)JavaPOO (Classes, Herança, Encapsulamento)SQLModelagem e manipulação de dados
+
+📁 Estrutura do Projeto
+atividade_paradigmas_ling_prog/
+├── java/
+│   └── Controle_De_Estoque/   # Implementação em Java com POO
+├── codeplp.py                 # Código principal em Python
+├── estoque_discos.sql         # Script do banco de dados
+└── README.md
+
+👩‍💻 Autora
+Desenvolvido por carolmarques09
+Disciplina: Paradigmas de Linguagem de Programação
