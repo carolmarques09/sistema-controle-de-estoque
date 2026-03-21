@@ -11,7 +11,7 @@ public class CategoriaDAO {
 
     // CREATE
     public void inserir(Categoria categoria) throws SQLException {
-        String sql = "INSERT INTO categoria (nome) VALUES (?)";
+        String sql = "INSERT INTO categorias (nome) VALUES (?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -24,7 +24,7 @@ public class CategoriaDAO {
     // READ (listar todos)
     public List<Categoria> listar() throws SQLException {
         List<Categoria> lista = new ArrayList<>();
-        String sql = "SELECT * FROM categoria";
+        String sql = "SELECT * FROM categorias";
 
         try (Connection conn = ConnectionFactory.getConnection();
              Statement stmt = conn.createStatement();
@@ -43,7 +43,7 @@ public class CategoriaDAO {
 
     // UPDATE
     public void atualizar(Categoria categoria) throws SQLException {
-        String sql = "UPDATE categoria SET nome = ? WHERE id = ?";
+        String sql = "UPDATE categorias SET nome = ? WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -56,7 +56,7 @@ public class CategoriaDAO {
 
     // DELETE
     public void deletar(int id) throws SQLException {
-        String sql = "DELETE FROM categoria WHERE id = ?";
+        String sql = "DELETE FROM categorias WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

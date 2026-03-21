@@ -12,7 +12,7 @@ public class ProdutoDAO {
 
     // CREATE
     public void inserir(Produto produto) throws SQLException {
-        String sql = "INSERT INTO produto (nome, quantidade, preco, categoria_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO produtos (nome, quantidade, preco, categoria_id) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -32,8 +32,8 @@ public class ProdutoDAO {
 
         String sql = """
             SELECT p.*, c.nome AS categoria_nome
-            FROM produto p
-            JOIN categoria c ON p.categoria_id = c.id
+            FROM produtos p
+            JOIN categorias c ON p.categoria_id = c.id
         """;
 
         try (Connection conn = ConnectionFactory.getConnection();
@@ -63,7 +63,7 @@ public class ProdutoDAO {
     // UPDATE
     public void atualizar(Produto produto) throws SQLException {
         String sql = """
-            UPDATE produto 
+            UPDATE produtos 
             SET nome = ?, quantidade = ?, preco = ?, categoria_id = ?
             WHERE id = ?
         """;
@@ -83,7 +83,7 @@ public class ProdutoDAO {
 
     // UPDATE específico (estoque)
     public void atualizarQuantidade(int id, int quantidade) throws SQLException {
-        String sql = "UPDATE produto SET quantidade = ? WHERE id = ?";
+        String sql = "UPDATE produtos SET quantidade = ? WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -96,7 +96,7 @@ public class ProdutoDAO {
 
     // DELETE
     public void deletar(int id) throws SQLException {
-        String sql = "DELETE FROM produto WHERE id = ?";
+        String sql = "DELETE FROM produtos WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
