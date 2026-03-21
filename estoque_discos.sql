@@ -35,3 +35,15 @@ VALUES
 ALTER TABLE produtos CHANGE id id_produto INT AUTO_INCREMENT;
 ALTER TABLE movimentacoes
 MODIFY produto_id INT NOT NULL;
+
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+ALTER TABLE produtos
+ADD COLUMN categoria_id INT,
+ADD CONSTRAINT fk_categoria
+FOREIGN KEY (categoria_id) REFERENCES categorias(id);
+
+INSERT INTO categorias (nome) VALUES ('Rock'), ('Pop'), ('Metal');
