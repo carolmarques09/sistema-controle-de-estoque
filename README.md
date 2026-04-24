@@ -1,6 +1,6 @@
 # 📦 Controle de Estoque
 
-Projeto desenvolvido como atividade da disciplina de **Paradigmas de Linguagem de Programação**, implementando um sistema de controle de estoque com duas abordagens distintas.
+Projeto desenvolvido a partir de uma atividade da disciplina de **Paradigmas de Linguagem de Programação**, implementando um sistema de controle de estoque com duas abordagens distintas.
 
 ---
 
