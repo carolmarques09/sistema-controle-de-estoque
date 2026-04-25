@@ -32,9 +32,9 @@ Sistema de controle de estoque que permite cadastrar, consultar, atualizar e rem
 atividade_paradigmas_ling_prog/
 ├── java/
 │   └── Controle_De_Estoque/   # Implementação em Java com POO
+├── README.md
 ├── codeplp.py                 # Código principal em Python
-├── estoque_discos.sql         # Script do banco de dados
-└── README.md
+└── estoque_discos.sql         # Script do banco de dados
 ```
 
 ---
